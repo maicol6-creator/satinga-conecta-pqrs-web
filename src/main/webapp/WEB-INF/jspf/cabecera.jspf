@@ -1,0 +1,39 @@
+<%-- Fragmento incluido con la DIRECTIVA include (se une a la página en tiempo de traducción). --%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><c:out value="${titulo}"/> – Satinga Conecta</title>
+  <link rel="stylesheet" href="<c:url value='/css/estilos.css'/>">
+</head>
+<body>
+<a class="saltar" href="#principal">Saltar al contenido</a>
+<header class="cabecera">
+  <a class="marca" href="<c:url value='/inicio'/>">Satinga <span>Conecta</span></a>
+  <nav aria-label="Principal">
+    <a href="<c:url value='/consulta'/>">Consultar radicado</a>
+    <c:choose>
+      <c:when test="${not empty usuarioActual}">
+        <a href="<c:url value='/inicio'/>">Inicio</a>
+        <a href="<c:url value='/pqrs'/>">${usuarioActual.funcionario ? 'Todas las PQRS' : 'Mis PQRS'}</a>
+        <c:if test="${not usuarioActual.funcionario}"><a href="<c:url value='/pqrs/nueva'/>">Radicar PQRS</a></c:if>
+        <form class="salir" method="post" action="<c:url value='/salir'/>">
+          <input type="hidden" name="csrf" value="<c:out value='${csrf}'/>">
+          <span class="usuario"><c:out value="${usuarioActual.nombre}"/></span>
+          <button class="btn btn-sec btn-peq" type="submit">Salir</button>
+        </form>
+      </c:when>
+      <c:otherwise>
+        <a href="<c:url value='/login'/>">Iniciar sesión</a>
+        <a href="<c:url value='/registro'/>">Registrarse</a>
+      </c:otherwise>
+    </c:choose>
+  </nav>
+</header>
+<main class="contenido" id="principal">
+<c:if test="${not empty flash}">
+  <div class="alerta alerta-${flashTipo == 'error' ? 'error' : 'ok'}" role="status"><c:out value="${flash}"/></div>
+</c:if>
