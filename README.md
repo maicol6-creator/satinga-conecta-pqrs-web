@@ -65,22 +65,27 @@ Navegador ──HTTP──► Filtros (UTF-8, autenticación)
 
 ## Cómo ejecutarlo
 
-Requisitos: **JDK 17+**, **Maven 3.9+**.
+Requisitos: **JDK 17+** y **Maven 3.9+** (ver `java -version` y `mvn -version`).
+
+**Forma rápida (Windows):** doble clic en `ejecutar.bat` y abre **http://localhost:8080/satinga-pqrs/**. En Linux/macOS usa `./ejecutar.sh`.
+
+**Con comandos** (dentro de la carpeta que contiene `pom.xml`):
 
 ```bash
-mvn test                 # 31 pruebas: DAO, seguridad y flujo HTTP completo con Tomcat embebido
-mvn package              # genera target/satinga-pqrs.war
-mvn cargo:run            # Tomcat 10 embebido -> http://localhost:8080/satinga-pqrs/
+mvn test                          # 31 pruebas: DAO, seguridad y flujo HTTP completo con Tomcat embebido
+mvn package cargo:run             # compila, genera el WAR y arranca Tomcat 10 -> http://localhost:8080/satinga-pqrs/
 ```
 
-También se puede copiar `target/satinga-pqrs.war` a la carpeta `webapps` de un **Tomcat 10.1** (no sirve Tomcat 9: usa `jakarta.*`).
+Para detener el servidor presiona `Ctrl + C`. También se puede copiar `target/satinga-pqrs.war` a la carpeta `webapps` de un **Tomcat 10.1** (no sirve Tomcat 9: usa `jakarta.*`).
+
+**Estilos:** `css/estilos.css` reutiliza la hoja de estilos del front-end (GA6-220501096-AA4-EV02/EV03): menú lateral, tarjetas, etiquetas de estado, formularios y diseño adaptable a celular.
 
 **Usuarios de demostración** (modo memoria, ya sembrados): `maicol / Satinga2026` (ciudadano) · `laura / Funcionario2026` (funcionario).
 
 ### Con MySQL (XAMPP / Workbench)
 
 1. Inicia MySQL y (opcional) ejecuta `database/satinga_pqrs.sql`; la app crea las tablas sola si no existen.
-2. Arranca con: `mvn cargo:run -Dsatinga.modo=jdbc -Dsatinga.jdbc.url="jdbc:mysql://localhost:3306/satinga_conecta" -Dsatinga.jdbc.usuario=root -Dsatinga.jdbc.clave=`
+2. Arranca con: `mvn package cargo:run -Dsatinga.modo=jdbc -Dsatinga.jdbc.url="jdbc:mysql://localhost:3306/satinga_conecta" -Dsatinga.jdbc.usuario=root -Dsatinga.jdbc.clave=`
    (o define esos valores como `context-param` en `web.xml`).
 
 ## Pruebas realizadas
