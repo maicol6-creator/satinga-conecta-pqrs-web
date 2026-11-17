@@ -90,10 +90,12 @@ class FlujoWebTest {
         HttpResponse<String> r = new Cliente().get("/login");
         assertEquals(200, r.statusCode());
         assertTrue(r.headers().firstValue("Content-Type").orElse("").contains("UTF-8"));
-        assertTrue(r.body().contains("<form method=\"post\""));
+        assertTrue(r.body().contains("method=\"post\" action=\"/login\""));
         assertTrue(r.body().contains("Alcaldía de Olaya Herrera"), "el pie JSP (declaración + expresión) debe renderizar");
         assertTrue(r.body().contains("Eres visitante"), "scriptlet y método declarado en el pie");
         assertTrue(r.body().contains("Acceso"), "jsp:param llega al pie");
+        assertFalse(r.body().contains("Ã"), "los fragmentos .jspf también deben leerse en UTF-8");
+        assertFalse(r.body().contains("jsessionid"), "no se reescriben las URL con jsessionid");
     }
 
     @Test void rutasProtegidasRedirigenALogin() throws Exception {
@@ -127,7 +129,7 @@ class FlujoWebTest {
         HttpResponse<String> inicio = c.get("/inicio");
         assertEquals(200, inicio.statusCode());
         assertTrue(inicio.body().contains("Hola, Maicol Caicedo"));
-        assertTrue(inicio.body().contains("PQRS en la plataforma"), "scriptlet + EL");
+        assertTrue(inicio.body().contains("Mis PQRS radicadas"), "scriptlet + EL");
         assertTrue(inicio.body().contains("Hoy es"), "jsp:useBean / getProperty");
 
         assertTrue(c.get("/pqrs/nueva").body().contains("<form method=\"post\" action=\"/pqrs/nueva\""));

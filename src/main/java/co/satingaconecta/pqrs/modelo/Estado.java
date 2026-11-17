@@ -2,8 +2,8 @@ package co.satingaconecta.pqrs.modelo;
 
 /** Ciclo de vida de una PQRS. */
 public enum Estado {
-    RADICADA("Radicada", "i-ambar"), EN_TRAMITE("En trámite", "i-azul"),
-    RESPONDIDA("Respondida", "i-verde"), CERRADA("Cerrada", "i-gris");
+    RADICADA("Radicada", "t-info"), EN_TRAMITE("En trámite", "t-wait"),
+    RESPONDIDA("Respondida", "t-ok"), CERRADA("Cerrada", "t-mute");
 
     private final String etiqueta;
     private final String clase;

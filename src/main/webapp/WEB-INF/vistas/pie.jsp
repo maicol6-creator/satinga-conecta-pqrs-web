@@ -9,9 +9,11 @@
     String estadoSesion = (session.getAttribute("usuario") != null) ? "autenticado" : "visitante";
 %>
 </main>
-<footer class="pie">
-  <p>Satinga Conecta · Bocas de Satinga · <%= ENTIDAD %> · <%= java.time.Year.now() %></p>
-  <p class="pie-peq"><c:out value="${param.modulo}"/> · <%= saludoDe(estadoSesion) %></p>
+<footer class="foot">
+  <span>Satinga Conecta · Bocas de Satinga · <%= ENTIDAD %> · <%= java.time.Year.now() %></span>
+  <span class="pie-peq"><c:out value="${param.modulo}"/> · <%= saludoDe(estadoSesion) %></span>
 </footer>
+<% if ("autenticado".equals(estadoSesion)) { %></div></div><% } %>
+<script src="<c:url value='/js/menu.js'/>"></script>
 </body>
 </html>

@@ -12,6 +12,8 @@
     <cookie-config>
       <http-only>true</http-only>
     </cookie-config>
+    <!-- Solo cookie: evita que Tomcat agregue ;jsessionid a los enlaces -->
+    <tracking-mode>COOKIE</tracking-mode>
   </session-config>
 
   <welcome-file-list>
@@ -25,6 +27,7 @@
   <jsp-config>
     <jsp-property-group>
       <url-pattern>*.jsp</url-pattern>
+      <url-pattern>*.jspf</url-pattern>
       <page-encoding>UTF-8</page-encoding>
       <trim-directive-whitespaces>true</trim-directive-whitespaces>
     </jsp-property-group>

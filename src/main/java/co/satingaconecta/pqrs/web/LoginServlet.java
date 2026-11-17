@@ -15,6 +15,7 @@ public class LoginServlet extends BaseServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (usuarioActual(req) != null) { redirigir(req, resp, "/inicio"); return; }
+        req.setAttribute("layout", "auth");
         vista(req, resp, "login.jsp", "Iniciar sesión");
     }
 
@@ -29,6 +30,7 @@ public class LoginServlet extends BaseServlet {
             req.setAttribute("error", "Usuario o contraseña incorrectos.");
             req.setAttribute("usuarioIngresado", usuario);
             resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            req.setAttribute("layout", "auth");
             vista(req, resp, "login.jsp", "Iniciar sesión");
             return;
         }

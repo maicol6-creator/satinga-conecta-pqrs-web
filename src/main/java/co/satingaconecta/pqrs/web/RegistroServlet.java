@@ -16,6 +16,7 @@ import java.util.Map;
 public class RegistroServlet extends BaseServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("layout", "auth");
         vista(req, resp, "registro.jsp", "Crear cuenta");
     }
 
@@ -42,6 +43,7 @@ public class RegistroServlet extends BaseServlet {
             req.setAttribute("nombre", nombre);
             req.setAttribute("usuarioIngresado", usuario);
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            req.setAttribute("layout", "auth");
             vista(req, resp, "registro.jsp", "Crear cuenta");
             return;
         }
